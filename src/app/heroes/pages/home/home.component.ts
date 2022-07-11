@@ -5,7 +5,7 @@ import { Component, OnInit } from '@angular/core';
   templateUrl: './home.component.html',
   styles: [`
   .container{
-    margin: 10px;
+    margin: 15px;
   }
   `
   ]

@@ -1,29 +1,25 @@
 import { Component, Input, OnInit } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
-import { map, Observable, pipe, tap } from 'rxjs';
+
 import { Heroe } from '../../interfaces/heroes.interface';
-import { HeroesService } from '../../services/heroes.service';
+
 
 @Component({
   selector: 'app-heroe-tarjeta',
   templateUrl: './heroe-tarjeta.component.html',
-  styles: [
-  ]
+  styles: [`
+    mat-card {
+      margin-top: 25px
+    }
+  `]
 })
 export class HeroeTarjetaComponent implements OnInit{
 
-  heroId = this.activatedRoute.params.pipe(map(p => console.log(p)));
+  @Input() heroe!:Heroe;  
   
-  constructor(private activatedRoute: ActivatedRoute){}
+  constructor(){}
 
-
-  ngOnInit(): void {
-    console.log(this.heroId);
-      
+  ngOnInit(): void {     
   }
-
-
-  @Input() heroe!:Heroe;
  
  
 }
