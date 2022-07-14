@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { ActivatedRoute, Router } from '@angular/router';
-import { switchMap } from 'rxjs';
+import { of, switchMap, tap } from 'rxjs';
 import { ConfirmarComponent } from '../../components/confirmar/confirmar.component';
 import { Heroe, Publisher } from '../../interfaces/heroes.interface';
 import { HeroesService } from '../../services/heroes.service';
@@ -81,26 +81,20 @@ export class AgregarComponent implements OnInit {
       data: {...this.heroe}
     });
     dialog.afterClosed()
-
-          .pipe(
-            switchMap( result => !! (result) ? this.heroesService.borrarHeroe(this.heroe.id!) : undefined )
-              // ({id}) => this.heroesService.borrarHeroe(id))
-            
-          )
-
-
-
-      // .subscribe( result => {
-        // console.log(result)
-        // if(result){
-        //   this.heroesService.borrarHeroe(this.heroe.id!)
-        //       .subscribe( resp => {
-        //         this.router.navigate(['/heroes']);
-        //       })          
-        // }
-      // })
-
+      .subscribe( result => {
+        console.log(result)
+        if(result){
+          this.heroesService.borrarHeroe(this.heroe.id!)
+       .subscribe( resp => {
+            this.router.navigate(['/heroes']);
+        })          
+      }
+    })    
   }
+          // .pipe(
+          //   switchMap( result => this.heroesService.borrarHeroe(this.heroe.id!)),
+          //   tap(console.log)
+          //   ).subscribe( resp => this.router.navigate(['/heroes']));
 
   openSnackBar(mensaje: string){
     this.snackBar.open(mensaje, 'Ok!',{
